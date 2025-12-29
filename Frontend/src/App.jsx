@@ -1,15 +1,7 @@
-import { useState } from 'react'
-
-
+import TestConnection from './components/TestConnection';
 
 function App() {
-
-
-  return (
-    <>
-      <h1>Yash Thakkar</h1>
-    </>
-  )
+  return <TestConnection />;
 }
 
-export default App
+export default App;

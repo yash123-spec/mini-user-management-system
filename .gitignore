@@ -1,0 +1,6 @@
+# Environment variables
+Backend/.env
+Frontend/.env
+
+# Dependencies
+node_modules/
