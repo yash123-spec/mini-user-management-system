@@ -1,3 +1,46 @@
+// Get current user's profile
+export const getMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('-password');
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        res.status(200).json({ success: true, user });
+    } catch (error) {
+        console.error('Get profile error:', error);
+        res.status(500).json({ success: false, message: 'Server error. Please try again later' });
+    }
+};
+
+// Update current user's profile (fullName, password)
+export const updateMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).select('+password');
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        const { fullName, currentPassword, newPassword } = req.body;
+        if (fullName) user.fullName = fullName;
+
+        if (newPassword) {
+            if (!currentPassword) {
+                return res.status(400).json({ success: false, message: 'Current password required to set new password' });
+            }
+            const isMatch = await user.comparePassword(currentPassword);
+            if (!isMatch) {
+                return res.status(400).json({ success: false, message: 'Current password is incorrect' });
+            }
+            user.password = newPassword;
+        }
+
+        await user.save();
+        res.status(200).json({ success: true, message: 'Profile updated successfully', user: { fullName: user.fullName, email: user.email, role: user.role, status: user.status } });
+    } catch (error) {
+        console.error('Update profile error:', error);
+        res.status(500).json({ success: false, message: 'Server error. Please try again later' });
+    }
+};
 import User from '../models/User.js';
 
 //get all users with pagination
