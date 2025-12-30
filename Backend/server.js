@@ -13,7 +13,9 @@ connectDB();
 
 
 app.use(cors({
-    origin: ['https://mini-user-management-system-zeta.vercel.app'],
+    origin: ['https://mini-user-management-system-zeta.vercel.app',
+        "http://localhost:5000"
+    ],
     credentials: true
 }));
 app.use(express.json());
