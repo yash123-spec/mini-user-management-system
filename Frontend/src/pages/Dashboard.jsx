@@ -62,13 +62,33 @@ const Dashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-            <div className="max-w-4xl mx-auto">
-                <div className="bg-white rounded-lg shadow-xl p-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">Welcome, {user.fullName}!</h1>
-                    <p className="text-gray-600 mb-2">Email: {user.email}</p>
-                    <p className="text-gray-600 mb-2">Role: {user.role}</p>
-                    <p className="text-gray-600 mb-4">Status: {user.status}</p>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+            <div className="w-full max-w-3xl flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden">
+                {/* Profile Card Left */}
+                <div className="flex flex-col items-center justify-center bg-gradient-to-br from-pink-400 to-orange-400 p-8 md:w-1/3 w-full">
+                    <div className="mb-4">
+                        <svg className="w-24 h-24 rounded-full bg-white p-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 19.125a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21c-2.676 0-5.216-.584-7.499-1.875z" />
+                        </svg>
+                    </div>
+                    <div className="text-white text-xl font-bold mb-1">{user.fullName}</div>
+                    <div className="text-white text-base mb-2 capitalize">{user.role}</div>
+                </div>
+                {/* Profile Card Right */}
+                <div className="flex-1 p-8">
+                    <div className="mb-6 border-b pb-4">
+                        <div className="text-lg font-semibold text-gray-800 mb-2">Information</div>
+                        <div className="flex flex-col md:flex-row md:space-x-8">
+                            <div className="mb-2 md:mb-0">
+                                <div className="text-sm font-bold text-gray-700">Email</div>
+                                <div className="text-gray-600 text-base">{user.email}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm font-bold text-gray-700">Status</div>
+                                <div className="text-gray-600 text-base capitalize">{user.status}</div>
+                            </div>
+                        </div>
+                    </div>
 
                     {message && <div className="bg-green-100 text-green-700 px-4 py-2 rounded mb-2">{message}</div>}
                     {error && <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-2">{error}</div>}

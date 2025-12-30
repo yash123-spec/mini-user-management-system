@@ -92,12 +92,12 @@ const Signup = () => {
     };
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-            <div className="max-w-md w-full bg-white rounded-lg shadow-xl p-8">
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+            <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-10">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
-                    <p className="text-gray-600">Sign up to get started</p>
+                    <h1 className="text-4xl font-extrabold text-gray-900 mb-2">Create Account</h1>
+                    <p className="text-gray-500 text-base">Sign up to get started</p>
                 </div>
 
                 {/* Server Error */}
@@ -108,10 +108,10 @@ const Signup = () => {
                 )}
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Full Name */}
                     <div>
-                        <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="fullName" className="block text-base font-medium text-gray-700 mb-1">
                             Full Name
                         </label>
                         <input
@@ -120,9 +120,8 @@ const Signup = () => {
                             name="fullName"
                             value={formData.fullName}
                             onChange={handleChange}
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.fullName ? 'border-red-500' : 'border-gray-300'
-                                }`}
-                            placeholder="John Doe"
+                            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base ${errors.fullName ? 'border-red-500' : 'border-gray-300'}`}
+                            placeholder="Full Name"
                         />
                         {errors.fullName && (
                             <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
@@ -131,8 +130,8 @@ const Signup = () => {
 
                     {/* Email */}
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                            Email Address
+                        <label htmlFor="email" className="block text-base font-medium text-gray-700 mb-1">
+                            Email address
                         </label>
                         <input
                             type="email"
@@ -140,9 +139,8 @@ const Signup = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.email ? 'border-red-500' : 'border-gray-300'
-                                }`}
-                            placeholder="john@example.com"
+                            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                            placeholder="Email address"
                         />
                         {errors.email && (
                             <p className="mt-1 text-sm text-red-600">{errors.email}</p>
@@ -151,7 +149,7 @@ const Signup = () => {
 
                     {/* Password */}
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="password" className="block text-base font-medium text-gray-700 mb-1">
                             Password
                         </label>
                         <input
@@ -160,9 +158,8 @@ const Signup = () => {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.password ? 'border-red-500' : 'border-gray-300'
-                                }`}
-                            placeholder="••••••••"
+                            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                            placeholder="Password"
                         />
                         {errors.password && (
                             <p className="mt-1 text-sm text-red-600">{errors.password}</p>
@@ -171,7 +168,7 @@ const Signup = () => {
 
                     {/* Confirm Password */}
                     <div>
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="confirmPassword" className="block text-base font-medium text-gray-700 mb-1">
                             Confirm Password
                         </label>
                         <input
@@ -180,9 +177,8 @@ const Signup = () => {
                             name="confirmPassword"
                             value={formData.confirmPassword}
                             onChange={handleChange}
-                            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                                }`}
-                            placeholder="••••••••"
+                            className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-base ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
+                            placeholder="Confirm Password"
                         />
                         {errors.confirmPassword && (
                             <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
@@ -193,7 +189,7 @@ const Signup = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
                     >
                         {loading ? (
                             <span className="flex items-center justify-center">
@@ -207,8 +203,8 @@ const Signup = () => {
                 </form>
 
                 {/* Login Link */}
-                <div className="mt-6 text-center">
-                    <p className="text-gray-600">
+                <div className="mt-8 text-center">
+                    <p className="text-gray-600 text-base">
                         Already have an account?{' '}
                         <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold">
                             Login

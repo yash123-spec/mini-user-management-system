@@ -86,7 +86,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="max-w-5xl mx-auto p-4">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold">Admin Dashboard</h2>
                 <button
                     onClick={handleLogout}
@@ -105,15 +105,15 @@ const AdminDashboard = () => {
                     {error}
                 </div>
             )}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border rounded">
-                    <thead>
+            <div className="overflow-x-auto bg-white rounded-xl shadow border">
+                <table className="min-w-full text-left">
+                    <thead className="bg-white">
                         <tr>
-                            <th className="py-2 px-3 border-b">Email</th>
-                            <th className="py-2 px-3 border-b">Full Name</th>
-                            <th className="py-2 px-3 border-b">Role</th>
-                            <th className="py-2 px-3 border-b">Status</th>
-                            <th className="py-2 px-3 border-b">Actions</th>
+                            <th className="py-3 px-4 font-semibold text-gray-700 border-b">Email</th>
+                            <th className="py-3 px-4 font-semibold text-gray-700 border-b">Full Name</th>
+                            <th className="py-3 px-4 font-semibold text-gray-700 border-b">Role</th>
+                            <th className="py-3 px-4 font-semibold text-gray-700 border-b">Status</th>
+                            <th className="py-3 px-4 font-semibold text-gray-700 border-b">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,11 +131,11 @@ const AdminDashboard = () => {
                             </tr>
                         ) : (
                             users.map((user) => (
-                                <tr key={user._id}>
-                                    <td className="py-2 px-3 border-b">{user.email}</td>
-                                    <td className="py-2 px-3 border-b">{user.fullName}</td>
-                                    <td className="py-2 px-3 border-b">{user.role}</td>
-                                    <td className="py-2 px-3 border-b">
+                                <tr key={user._id} className="hover:bg-gray-50 transition-colors">
+                                    <td className="py-3 px-4 border-b">{user.email}</td>
+                                    <td className="py-3 px-4 border-b">{user.fullName}</td>
+                                    <td className="py-3 px-4 border-b">{user.role}</td>
+                                    <td className="py-3 px-4 border-b">
                                         <span
                                             className={`px-2 py-1 rounded text-xs ${user.status === "active"
                                                 ? "bg-green-100 text-green-700"
@@ -145,22 +145,28 @@ const AdminDashboard = () => {
                                             {user.status}
                                         </span>
                                     </td>
-                                    <td className="py-2 px-3 border-b">
+                                    <td className="py-3 px-4 border-b">
                                         {user.role !== "admin" && (
                                             <>
                                                 {user.status === "active" ? (
                                                     <button
-                                                        className="bg-red-500 text-white px-3 py-1 rounded mr-2 hover:bg-red-600"
+                                                        className="text-red-600 hover:text-red-800 p-2"
                                                         onClick={() => handleAction(user, "deactivate")}
+                                                        title="Deactivate"
                                                     >
-                                                        Deactivate
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
                                                     </button>
                                                 ) : (
                                                     <button
-                                                        className="bg-green-500 text-white px-3 py-1 rounded mr-2 hover:bg-green-600"
+                                                        className="text-green-600 hover:text-green-800 p-2"
                                                         onClick={() => handleAction(user, "activate")}
+                                                        title="Activate"
                                                     >
-                                                        Activate
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                        </svg>
                                                     </button>
                                                 )}
                                             </>
@@ -173,21 +179,43 @@ const AdminDashboard = () => {
                 </table>
             </div>
             {/* Pagination */}
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center items-center mt-6 space-x-1">
                 <button
-                    className="px-3 py-1 mx-1 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-2 py-1 rounded border text-gray-500 hover:bg-gray-100"
+                    onClick={() => setPage(1)}
+                    disabled={page === 1}
+                >
+                    {'<<'}
+                </button>
+                <button
+                    className="px-2 py-1 rounded border text-gray-500 hover:bg-gray-100"
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
                     disabled={page === 1}
                 >
-                    Prev
+                    {'<'}
                 </button>
-                <span className="px-3 py-1 mx-1">{page} / {totalPages}</span>
+                {[...Array(totalPages)].map((_, idx) => (
+                    <button
+                        key={idx + 1}
+                        className={`px-3 py-1 rounded border ${page === idx + 1 ? 'bg-green-200 text-green-900 font-bold' : 'text-gray-700 hover:bg-gray-100'}`}
+                        onClick={() => setPage(idx + 1)}
+                    >
+                        {idx + 1}
+                    </button>
+                ))}
                 <button
-                    className="px-3 py-1 mx-1 bg-gray-200 rounded hover:bg-gray-300"
+                    className="px-2 py-1 rounded border text-gray-500 hover:bg-gray-100"
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                     disabled={page === totalPages}
                 >
-                    Next
+                    {'>'}
+                </button>
+                <button
+                    className="px-2 py-1 rounded border text-gray-500 hover:bg-gray-100"
+                    onClick={() => setPage(totalPages)}
+                    disabled={page === totalPages}
+                >
+                    {'>>'}
                 </button>
             </div>
             {/* Modal for confirmation */}
