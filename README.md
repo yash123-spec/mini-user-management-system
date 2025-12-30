@@ -31,7 +31,7 @@ This is a small MERN stack project for user management with roles and permission
 3. Setup `.env` file (see below)
 4. Run `npm run dev`
 
-## Environment Variables (do not share values)
+## Environment Variables 
 
 **Backend:**
 
@@ -50,7 +50,7 @@ This is a small MERN stack project for user management with roles and permission
 
 - Backend: Deploy to Render, set env vars in dashboard
 - Frontend: Deploy to Vercel, set VITE_API_URL in dashboard
-- Make sure both use HTTPS and public URLs
+- Made sure both use HTTPS and public URLs
 
 ## API Documentation
 
