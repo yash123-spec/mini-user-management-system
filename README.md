@@ -31,7 +31,7 @@ This is a small MERN stack project for user management with roles and permission
 3. Setup `.env` file (see below)
 4. Run `npm run dev`
 
-## Environment Variables (do not share values)
+## Environment Variables
 
 **Backend:**
 
@@ -51,7 +51,7 @@ This is a small MERN stack project for user management with roles and permission
 
 ## API Documentation
 
-- Postman Collection: [link here]
+
 - Example request (signup):
 
 ```http
