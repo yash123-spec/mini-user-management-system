@@ -77,9 +77,7 @@ export const signup = async (req, res) => {
     }
 };
 
-// @desc    Login user
-// @route   POST /api/auth/login
-// @access  Public
+//login controller
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
