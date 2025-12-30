@@ -15,7 +15,7 @@ const Dashboard = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/me`, {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/me`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUser(res.data.user);
@@ -35,7 +35,7 @@ const Dashboard = () => {
         try {
             const token = localStorage.getItem('token');
             const res = await axios.patch(
-                `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/users/me`,
+                `${import.meta.env.VITE_API_URL}/api/users/me`,
                 { fullName, currentPassword: currentPassword || undefined, newPassword: newPassword || undefined },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

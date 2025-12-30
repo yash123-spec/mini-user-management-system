@@ -33,7 +33,7 @@ const AdminDashboard = () => {
         setError("");
         try {
             const res = await axios.get(
-                `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/users?page=${pageNum}&limit=${PAGE_SIZE}`,
+                `${import.meta.env.VITE_API_URL}/api/users?page=${pageNum}&limit=${PAGE_SIZE}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }
@@ -60,7 +60,7 @@ const AdminDashboard = () => {
         setMessage("");
         try {
             await axios.patch(
-                `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/api/users/${actionUser._id}/${actionType}`,
+                `${import.meta.env.VITE_API_URL}/api/users/${actionUser._id}/${actionType}`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );
