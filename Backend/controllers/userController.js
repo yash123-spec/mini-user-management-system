@@ -20,8 +20,23 @@ export const updateMe = async (req, res) => {
             return res.status(404).json({ success: false, message: 'User not found' });
         }
 
-        const { fullName, currentPassword, newPassword } = req.body;
+        const { fullName, email, currentPassword, newPassword } = req.body;
         if (fullName) user.fullName = fullName;
+
+        // Email update with validation and duplicate check
+        if (email && email !== user.email) {
+            // Basic email format validation
+            const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!emailRegex.test(email)) {
+                return res.status(400).json({ success: false, message: 'Invalid email format' });
+            }
+            // Check for duplicate email
+            const existing = await User.findOne({ email });
+            if (existing && existing._id.toString() !== user._id.toString()) {
+                return res.status(400).json({ success: false, message: 'Email already in use' });
+            }
+            user.email = email;
+        }
 
         if (newPassword) {
             if (!currentPassword) {

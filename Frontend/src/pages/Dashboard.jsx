@@ -6,8 +6,10 @@ import axios from 'axios';
 const Dashboard = () => {
     const [user, setUser] = useState(null);
     const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [showPasswordFields, setShowPasswordFields] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -21,6 +23,7 @@ const Dashboard = () => {
                 });
                 setUser(res.data.user);
                 setFullName(res.data.user.fullName);
+                setEmail(res.data.user.email);
             } catch (err) {
                 setError('Failed to load profile. Please login again.');
                 toast.error('Failed to load profile. Please login again.');
@@ -36,24 +39,45 @@ const Dashboard = () => {
         setError('');
         try {
             const token = localStorage.getItem('token');
+            const payload = { fullName, email };
+            if (showPasswordFields) {
+                if (!currentPassword || !newPassword) {
+                    toast.error('Please enter both current and new password.');
+                    setLoading(false);
+                    return;
+                }
+                payload.currentPassword = currentPassword;
+                payload.newPassword = newPassword;
+            }
             const res = await axios.patch(
                 `${import.meta.env.VITE_API_URL}/api/users/me`,
-                { fullName, currentPassword: currentPassword || undefined, newPassword: newPassword || undefined },
+                payload,
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setMessage('Profile updated successfully.');
             toast.success('Profile updated successfully.');
-            setUser((prev) => ({ ...prev, fullName }));
+            setUser((prev) => ({ ...prev, fullName, email }));
             // Update localStorage user
             const stored = JSON.parse(localStorage.getItem('user')) || {};
-            localStorage.setItem('user', JSON.stringify({ ...stored, fullName }));
+            localStorage.setItem('user', JSON.stringify({ ...stored, fullName, email }));
             setCurrentPassword('');
             setNewPassword('');
+            setShowPasswordFields(false);
         } catch (err) {
             setError(err.response?.data?.message || 'Update failed.');
             toast.error(err.response?.data?.message || 'Update failed.');
         }
         setLoading(false);
+    };
+
+    const handleShowPasswordFields = () => {
+        setShowPasswordFields(true);
+    };
+
+    const handleCancelPasswordChange = () => {
+        setShowPasswordFields(false);
+        setCurrentPassword('');
+        setNewPassword('');
     };
 
     const handleLogout = () => {
@@ -69,7 +93,7 @@ const Dashboard = () => {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
             <div className="w-full max-w-3xl flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden">
                 {/* Profile Card Left */}
-                <div className="flex flex-col items-center justify-center bg-linear-to-br from-pink-400 to-orange-400 p-8 md:w-1/3 w-full">
+                <div className="flex flex-col items-center justify-center bg-gradient-to-br from-pink-400 to-orange-400 p-8 md:w-1/3 w-full">
                     <div className="mb-4">
                         <svg className="w-24 h-24 rounded-full bg-white p-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 19.125a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21c-2.676 0-5.216-.584-7.499-1.875z" />
@@ -109,29 +133,69 @@ const Dashboard = () => {
                             />
                         </div>
                         <div>
-                            <label className="block text-gray-700 font-semibold mb-1">Change Password</label>
+                            <label className="block text-gray-700 font-semibold mb-1">Email</label>
                             <input
-                                type="password"
-                                className="w-full border px-3 py-2 rounded mb-2"
-                                placeholder="Current Password"
-                                value={currentPassword}
-                                onChange={(e) => setCurrentPassword(e.target.value)}
-                            />
-                            <input
-                                type="password"
+                                type="email"
                                 className="w-full border px-3 py-2 rounded"
-                                placeholder="New Password"
-                                value={newPassword}
-                                onChange={(e) => setNewPassword(e.target.value)}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                         </div>
-                        <button
-                            type="submit"
-                            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-                            disabled={loading}
-                        >
-                            {loading ? 'Saving...' : 'Save Changes'}
-                        </button>
+                        {/* Change Password Section */}
+                        {!showPasswordFields ? (
+                            <button
+                                type="button"
+                                className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
+                                onClick={handleShowPasswordFields}
+                            >
+                                Change Password
+                            </button>
+                        ) : (
+                            <div className="space-y-2">
+                                <label className="block text-gray-700 font-semibold mb-1">Change Password</label>
+                                <input
+                                    type="password"
+                                    className="w-full border px-3 py-2 rounded"
+                                    placeholder="Current Password"
+                                    value={currentPassword}
+                                    onChange={(e) => setCurrentPassword(e.target.value)}
+                                />
+                                <input
+                                    type="password"
+                                    className="w-full border px-3 py-2 rounded"
+                                    placeholder="New Password"
+                                    value={newPassword}
+                                    onChange={(e) => setNewPassword(e.target.value)}
+                                />
+                                <div className="flex space-x-2 mt-2">
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                                        disabled={loading}
+                                    >
+                                        {loading ? 'Saving...' : 'Save'}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="bg-gray-400 text-white px-6 py-2 rounded-lg hover:bg-gray-500"
+                                        onClick={handleCancelPasswordChange}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                        {/* Save button for profile (if not changing password) */}
+                        {!showPasswordFields && (
+                            <button
+                                type="submit"
+                                className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                                disabled={loading}
+                            >
+                                {loading ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        )}
                     </form>
 
                     <div className="mt-6">
