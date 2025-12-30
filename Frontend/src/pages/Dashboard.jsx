@@ -65,7 +65,7 @@ const Dashboard = () => {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
             <div className="w-full max-w-3xl flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden">
                 {/* Profile Card Left */}
-                <div className="flex flex-col items-center justify-center bg-gradient-to-br from-pink-400 to-orange-400 p-8 md:w-1/3 w-full">
+                <div className="flex flex-col items-center justify-center bg-linear-to-br from-pink-400 to-orange-400 p-8 md:w-1/3 w-full">
                     <div className="mb-4">
                         <svg className="w-24 h-24 rounded-full bg-white p-2" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 19.125a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21c-2.676 0-5.216-.584-7.499-1.875z" />
