@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import AdminDashboard from './pages/AdminDashboard';
 import TestConnection from './components/TestConnection';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
@@ -29,7 +30,7 @@ function App() {
           path="/admin/dashboard"
           element={
             <AdminRoute>
-              <Dashboard />
+              <AdminDashboard />
             </AdminRoute>
           }
         />
