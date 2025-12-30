@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -42,6 +44,7 @@ function App() {
 
         <Route path="/test" element={<TestConnection />} />
       </Routes>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </Router>
   );
 }

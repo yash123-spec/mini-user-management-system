@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
@@ -77,15 +78,15 @@ const Signup = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Redirect to login page after successful signup
-                navigate('/login', {
-                    state: { message: 'Account created successfully! Please login.' }
-                });
+                toast.success('Account created successfully! Please login.');
+                navigate('/login');
             } else {
                 setServerError(data.message || 'Signup failed. Please try again.');
+                toast.error(data.message || 'Signup failed. Please try again.');
             }
         } catch (error) {
             setServerError('Unable to connect to server. Please try again later.');
+            toast.error('Unable to connect to server. Please try again later.');
         } finally {
             setLoading(false);
         }

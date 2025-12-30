@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Login = () => {
@@ -72,6 +73,7 @@ const Login = () => {
             const data = await response.json();
 
             if (response.ok) {
+                toast.success('Login successful!');
                 // Store token and user in localStorage
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.user));
@@ -84,9 +86,11 @@ const Login = () => {
                 }
             } else {
                 setServerError(data.message || 'Login failed. Please try again.');
+                toast.error(data.message || 'Login failed. Please try again.');
             }
         } catch (error) {
             setServerError('Unable to connect to server. Please try again later.');
+            toast.error('Unable to connect to server. Please try again later.');
         } finally {
             setLoading(false);
         }

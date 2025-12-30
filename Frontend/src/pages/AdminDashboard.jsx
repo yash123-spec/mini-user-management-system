@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -44,6 +45,7 @@ const AdminDashboard = () => {
             setError(
                 err.response?.data?.message || "Failed to fetch users. Please try again."
             );
+            toast.error(err.response?.data?.message || "Failed to fetch users. Please try again.");
         }
         setLoading(false);
     };
@@ -67,12 +69,14 @@ const AdminDashboard = () => {
             setMessage(
                 `User ${actionType === "activate" ? "activated" : "deactivated"} successfully.`
             );
+            toast.success(`User ${actionType === "activate" ? "activated" : "deactivated"} successfully.`);
             fetchUsers(page);
         } catch (err) {
             setError(
                 err.response?.data?.message ||
                 `Failed to ${actionType} user. Please try again.`
             );
+            toast.error(err.response?.data?.message || `Failed to ${actionType} user. Please try again.`);
         }
         setActionUser(null);
         setActionType("");

@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 const Dashboard = () => {
@@ -22,6 +23,7 @@ const Dashboard = () => {
                 setFullName(res.data.user.fullName);
             } catch (err) {
                 setError('Failed to load profile. Please login again.');
+                toast.error('Failed to load profile. Please login again.');
             }
         };
         fetchProfile();
@@ -40,6 +42,7 @@ const Dashboard = () => {
                 { headers: { Authorization: `Bearer ${token}` } }
             );
             setMessage('Profile updated successfully.');
+            toast.success('Profile updated successfully.');
             setUser((prev) => ({ ...prev, fullName }));
             // Update localStorage user
             const stored = JSON.parse(localStorage.getItem('user')) || {};
@@ -48,6 +51,7 @@ const Dashboard = () => {
             setNewPassword('');
         } catch (err) {
             setError(err.response?.data?.message || 'Update failed.');
+            toast.error(err.response?.data?.message || 'Update failed.');
         }
         setLoading(false);
     };
