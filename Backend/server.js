@@ -12,7 +12,10 @@ const app = express();
 connectDB();
 
 
-app.use(cors());
+app.use(cors({
+    origin: ['https://mini-user-management-system-zeta.vercel.app'],
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
